@@ -25,7 +25,7 @@ class Biblioteka:
             if tytul == tytul_ksiazki:
                 return egzemplarze > 0
 
-    def ksiazka_po_tytule(self,tytul_ksiazki) -> Ksiazka:
+    def ksiazka_po_tytule(self,tytul_ksiazki) -> tuple:
         for (tytul,autor,rok), egzemplarze in self.ksiazki.items():
             if tytul == tytul_ksiazki:
                 return tytul,autor,rok
@@ -44,7 +44,7 @@ class Biblioteka:
 
     def dodaj_ksiazke(self,ksiazka):
         if (ksiazka.tytul, ksiazka.autor,ksiazka.rok) not in self.ksiazki:
-            self.ksiazki[(ksiazka.tytul,ksiazka.autor,ksiazka.rok)] = 1
+            self.ksiazki[(ksiazka[0],ksiazka[1],ksiazka[2])] = 1
         else:
             self.ksiazki[(ksiazka.tytul,ksiazka.autor, ksiazka.rok)] += 1
         return "True"
@@ -53,14 +53,14 @@ class Biblioteka:
         if not self.pobierz_czytelnika(czytelnik) and self.sprawdz_stan(tytul):
             self.czytelnicy[czytelnik] = {tytul: 1}
             ksiazka = self.ksiazka_po_tytule(tytul)
-            self.ksiazki[(ksiazka.tytul,ksiazka.autor,ksiazka.rok)] -= 1
+            self.ksiazki[(ksiazka[0],ksiazka[1],ksiazka[2])] -= 1
             return "True"
         else:
             return "False"
         if self.sprawdz_stan(tytul) and not self.sprawdz_czy_ta_sama(czytelnik, tytul) and not self.sprawdz_czy_trzy(czytelnik):
             self.czytelnicy[czytelnik][tytul] = 1
             ksiazka = self.ksiazka_po_tytule(tytul)
-            self.ksiazki[(ksiazka.tytul,ksiazka.autor,ksiazka.rok)] -= 1
+            self.ksiazki[(ksiazka[0],ksiazka[1],ksiazka[2])] -= 1
             return "True"
         else:
             return "False"
@@ -70,7 +70,7 @@ class Biblioteka:
             return "False"
         else:
             ksiazka = self.ksiazka_po_tytule(tytul)
-            self.ksiazki[(ksiazka.tytul,ksiazka.autor,ksiazka.rok)] += 1
+            self.ksiazki[(ksiazka[0],ksiazka[1],ksiazka[2])] += 1
             del self.czytelnicy[czytelnik][tytul]
             return "True"
 
@@ -83,7 +83,6 @@ def main():
 
     for _ in range(int(liczba_akcji)):
         dane_wejsciowe = eval(input())
-        print(dane_wejsciowe)
         if dane_wejsciowe[0] == "dodaj":
             ksiazka = Ksiazka(dane_wejsciowe[1], dane_wejsciowe[2], int(dane_wejsciowe[3]))
             wynik = biblioteka.dodaj_ksiazke(ksiazka)
