@@ -72,6 +72,8 @@ class Biblioteka:
             return "False"
         else:
             del self.czytelnicy[czytelnik][tytul]
+            ksiazka = self.ksiazka_po_tytule(tytul)
+            self.ksiazki[ksiazka] += 1
             return "True"
 
 
