@@ -45,19 +45,19 @@ class Biblioteka:
         return "True"
     
     def wypozycz_ksiazke(self,czytelnik, tytul):
-        if not pobierz_czytelnika(czytelnik) and sprawdz_stan(tytul):
+        if not self.pobierz_czytelnika(czytelnik) and self.sprawdz_stan(tytul):
             self.czytelnicy[czytelnik][tytul] = 1
             return "True"
         else:
             return "False"
-        if sprawdz_stan(tytul) and not sprawdz_czy_ta_sama(czytelnik, tytul) and not sprawdz_czy_trzy(czytelnik):
+        if self.sprawdz_stan(tytul) and not self.sprawdz_czy_ta_sama(czytelnik, tytul) and not self.sprawdz_czy_trzy(czytelnik):
             self.czytelnicy[czytelnik][tytul] = 1
             return "True"
         else:
             return "False"
 
     def oddaj_ksiazke(self,czytelnik, tytul):
-        if not pobierz_czytelnika(czytelnik):
+        if not self.pobierz_czytelnika(czytelnik):
             return "False"
         if tytul not in self.czytelnicy[czytelnilk]:
             return "False"
