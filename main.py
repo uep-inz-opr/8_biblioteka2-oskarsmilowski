@@ -52,15 +52,15 @@ class Biblioteka:
     def wypozycz_ksiazke(self,czytelnik, tytul):
         if not self.pobierz_czytelnika(czytelnik) and self.sprawdz_stan(tytul):
             self.czytelnicy[czytelnik] = {tytul: 1}
-            ksiazka = self.ksiazka_po_tytule(tytul)
-            self.ksiazki[(ksiazka[0],ksiazka[1],ksiazka[2])] -= 1
+            dane_ksiazki = self.ksiazka_po_tytule(tytul)
+            self.ksiazki[(dane_ksiazki[0],dane_ksiazki[1],dane_ksiazki[2])] -= 1
             return "True"
         else:
             return "False"
         if self.sprawdz_stan(tytul) and not self.sprawdz_czy_ta_sama(czytelnik, tytul) and not self.sprawdz_czy_trzy(czytelnik):
             self.czytelnicy[czytelnik][tytul] = 1
-            ksiazka = self.ksiazka_po_tytule(tytul)
-            self.ksiazki[(ksiazka[0],ksiazka[1],ksiazka[2])] -= 1
+            dane_ksiazki = self.ksiazka_po_tytule(tytul)
+            self.ksiazki[(dane_ksiazki[0],dane_ksiazki[1],dane_ksiazki[2])] -= 1
             return "True"
         else:
             return "False"
@@ -69,8 +69,8 @@ class Biblioteka:
         if tytul not in self.czytelnicy[czytelnik]:
             return "False"
         else:
-            ksiazka = self.ksiazka_po_tytule(tytul)
-            self.ksiazki[(ksiazka[0],ksiazka[1],ksiazka[2])] += 1
+            dane_ksiazki = self.ksiazka_po_tytule(tytul)
+            self.ksiazki[(dane_ksiazki[0],dane_ksiazki[1],dane_ksiazki[2])] += 1
             del self.czytelnicy[czytelnik][tytul]
             return "True"
 
