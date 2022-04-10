@@ -74,7 +74,7 @@ def main():
 
     for _ in range(int(liczba_akcji)):
         dane_wejsciowe = eval(input())
-
+        print(dane_wejsciowe)
         if dane_wejsciowe[0] == "dodaj":
             ksiazka = Ksiazka(dane_wejsciowe[1], dane_wejsciowe[2], int(dane_wejsciowe[3]))
             wynik = biblioteka.dodaj_ksiazke(ksiazka)
