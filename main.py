@@ -24,6 +24,8 @@ class Biblioteka:
         for ksiazka, egzemplarze in self.ksiazki.items():
             if ksiazka.tytul == tytul_ksiazki:
                 return egzemplarze > 0
+        
+        return False
 
     def ksiazka_po_tytule(self,tytul_ksiazki) -> Ksiazka:
         for ksiazka in self.ksiazki:
@@ -39,7 +41,11 @@ class Biblioteka:
     
     def sprawdz_czy_trzy(self,czytelnik) -> bool:
         if czytelnik in self.czytelnicy:
-            return len(self.czytelnicy[czytelnik]) == 3
+            suma_wypozyczonych = 0
+            for ksiazka,egzemplarze in self.czytelnicy[czytelnik].items():
+                suma_wypozyczonych += egzemplarze
+            return suma_wypozyczonych > 2
+
             
 
 
@@ -56,8 +62,7 @@ class Biblioteka:
             ksiazka = self.ksiazka_po_tytule(tytul)
             self.ksiazki[ksiazka] -= 1
             return "True"
-        else:
-            return "False"
+
         if self.sprawdz_stan(tytul) and not self.sprawdz_czy_ta_sama(czytelnik, tytul) and not self.sprawdz_czy_trzy(czytelnik):
             self.czytelnicy[czytelnik][tytul] = 1
             ksiazka = self.ksiazka_po_tytule(tytul)
@@ -70,6 +75,8 @@ class Biblioteka:
         if not self.pobierz_czytelnika(czytelnik):
             return "False"
         if tytul not in self.czytelnicy[czytelnik]:
+            return "False"
+        if self.czytelnicy[czytelnik][tytul] == 0:
             return "False"
         else:
             ksiazka = self.ksiazka_po_tytule(tytul)
