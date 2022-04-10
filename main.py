@@ -14,37 +14,37 @@ class Biblioteka:
     czytelnicy: dict() # zagniezdzony slownik, kazdy czytelnik ma swoj slownik wypozyczen {tytul: 1}
 
 
-    def pobierz_czytelnika(imie) -> dict:
+    def pobierz_czytelnika(self,imie) -> dict:
         if imie in self.czytelnicy:
             return self.czytelnicy[imie]
         else:
             return False
     
-    def sprawdz_stan(tytul_ksiazki) -> bool:
+    def sprawdz_stan(self,tytul_ksiazki) -> bool:
         for (tytul,autor,rok), egzemplarze in self.ksiazki.items():
             if tytul == tytul_ksiazki:
                 return egzemplarze > 0
     
-    def sprawdz_czy_ta_sama(czytelnik, tytul) -> bool:
+    def sprawdz_czy_ta_sama(self,czytelnik, tytul) -> bool:
         if czytelnik in self.czytelnicy:
             if tytul in self.czytelnicy[czytelnik]:
                 return true
         return false
     
-    def sprawdz_czy_trzy(czytelnik) -> bool:
+    def sprawdz_czy_trzy(self,czytelnik) -> bool:
         if czytelnik in self.czytelnicy:
             return len(self.czytelnicy[czytelnik]) == 3
             
 
 
-    def dodaj_ksiazke(ksiazka):
-        if (ksiazka.tytul, ksiazka.autor,ksiazka.rok) not in biblioteka.ksiazki:
-            biblioteka.ksiazki[(ksiazka.tytul,ksiazka.autor,ksiazka.rok)] = 1
+    def dodaj_ksiazke(self,ksiazka):
+        if (ksiazka.tytul, ksiazka.autor,ksiazka.rok) not in self.ksiazki:
+            self.ksiazki[(ksiazka.tytul,ksiazka.autor,ksiazka.rok)] = 1
         else:
-            biblioteka.ksiazki[(ksiazka.tytul,ksiazka.autor, ksiazka.rok)] += 1
+            self.ksiazki[(ksiazka.tytul,ksiazka.autor, ksiazka.rok)] += 1
         return "True"
     
-    def wypozycz_ksiazke(czytelnik, tytul):
+    def wypozycz_ksiazke(self,czytelnik, tytul):
         if not pobierz_czytelnika(czytelnik) and sprawdz_stan(tytul):
             self.czytelnicy[czytelnik][tytul] = 1
             return "True"
@@ -56,7 +56,7 @@ class Biblioteka:
         else:
             return "False"
 
-    def oddaj_ksiazke(czytelnik, tytul):
+    def oddaj_ksiazke(self,czytelnik, tytul):
         if not pobierz_czytelnika(czytelnik):
             return "False"
         if tytul not in self.czytelnicy[czytelnilk]:
@@ -74,7 +74,6 @@ def main():
 
     for _ in range(int(liczba_akcji)):
         dane_wejsciowe = eval(input())
-        print(dane_wejsciowe)
 
         if dane_wejsciowe[0] == "dodaj":
             ksiazka = Ksiazka(dane_wejsciowe[1], dane_wejsciowe[2], int(dane_wejsciowe[3]))
@@ -82,7 +81,7 @@ def main():
         elif dane_wejsciowe[0] == "wypozycz":
             wynik = biblioteka.wypozycz_ksiazke(dane_wejsciowe[1], dane_wejsciowe[2])
         else:
-            wynik =biblioteka.oddaj_ksiazke(dane_wejsciowe[1], dane_wejsciowe[2])
+            wynik = biblioteka.oddaj_ksiazke(dane_wejsciowe[1], dane_wejsciowe[2])
         print(wynik)
 
         
