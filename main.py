@@ -26,7 +26,7 @@ class Biblioteka:
                 return egzemplarze > 0
 
     def ksiazka_po_tytule(self,tytul) -> Ksiazka:
-        or (tytul,autor,rok), egzemplarze in self.ksiazki.items():
+        for (tytul,autor,rok), egzemplarze in self.ksiazki.items():
             if tytul == tytul_ksiazki:
                 return tytul,autor,rok
     
