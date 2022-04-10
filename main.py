@@ -46,8 +46,7 @@ class Biblioteka:
     
     def wypozycz_ksiazke(self,czytelnik, tytul):
         if not self.pobierz_czytelnika(czytelnik) and self.sprawdz_stan(tytul):
-            self.czytelnicy[czytelnik] = tytul
-            self.czytelnicy[czytelnik][tytul] = 1
+            self.czytelnicy[czytelnik] = {tytul: 1}
             return "True"
         else:
             return "False"
