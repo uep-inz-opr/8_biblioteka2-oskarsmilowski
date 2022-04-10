@@ -53,27 +53,25 @@ class Biblioteka:
         if not self.pobierz_czytelnika(czytelnik) and self.sprawdz_stan(tytul):
             self.czytelnicy[czytelnik] = {tytul: 1}
             ksiazka = self.ksiazka_po_tytule(tytul)
-            self.ksiazki[ksiazka] -= 1
+            self.ksiazki[(ksiazka.tytul,ksiazka.autor,ksiazka.rok)] -= 1
             return "True"
         else:
             return "False"
         if self.sprawdz_stan(tytul) and not self.sprawdz_czy_ta_sama(czytelnik, tytul) and not self.sprawdz_czy_trzy(czytelnik):
             self.czytelnicy[czytelnik][tytul] = 1
             ksiazka = self.ksiazka_po_tytule(tytul)
-            self.ksiazki[ksiazka] -= 1
+            self.ksiazki[(ksiazka.tytul,ksiazka.autor,ksiazka.rok)] -= 1
             return "True"
         else:
             return "False"
 
     def oddaj_ksiazke(self,czytelnik, tytul):
-        if not self.pobierz_czytelnika(czytelnik):
-            return "False"
         if tytul not in self.czytelnicy[czytelnik]:
             return "False"
         else:
-            del self.czytelnicy[czytelnik][tytul]
             ksiazka = self.ksiazka_po_tytule(tytul)
-            self.ksiazki[ksiazka] += 1
+            self.ksiazki[(ksiazka.tytul,ksiazka.autor,ksiazka.rok)] += 1
+            del self.czytelnicy[czytelnik][tytul]
             return "True"
 
 
