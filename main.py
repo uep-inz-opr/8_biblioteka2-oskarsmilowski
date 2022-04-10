@@ -14,28 +14,27 @@ class Biblioteka:
     czytelnicy: dict() # zagniezdzony slownik, kazdy czytelnik ma swoj slownik wypozyczen {tytul: 1}
 
 
-    def pobierz_czytelnika(self,imie) -> dict:
+    def pobierz_czytelnika(self,imie) -> bool:
         if imie in self.czytelnicy:
-            return self.czytelnicy[imie]
+            return True
         else:
             return False
     
     def sprawdz_stan(self,tytul_ksiazki) -> bool:
-        for (tytul,autor,rok), egzemplarze in self.ksiazki.items():
-            if tytul == tytul_ksiazki:
+        for ksiazka, egzemplarze in self.ksiazki.items():
+            if ksiazka.tytul == tytul_ksiazki:
                 return egzemplarze > 0
 
-    def ksiazka_po_tytule(self,tytul_ksiazki) -> tuple:
-        for (tytul,autor,rok), egzemplarze in self.ksiazki.items():
-            if tytul == tytul_ksiazki:
-                ksiazka = Ksiazka(tytul,autor,rok)
+    def ksiazka_po_tytule(self,tytul_ksiazki) -> Ksiazka:
+        for ksiazka in self.ksiazki:
+            if ksiazka.tytul == tytul_ksiazki:
                 return ksiazka
     
     def sprawdz_czy_ta_sama(self,czytelnik, tytul) -> bool:
         if czytelnik in self.czytelnicy:
             if tytul in self.czytelnicy[czytelnik]:
-                return true
-        return false
+                return True
+        return False
     
     def sprawdz_czy_trzy(self,czytelnik) -> bool:
         if czytelnik in self.czytelnicy:
@@ -44,24 +43,24 @@ class Biblioteka:
 
 
     def dodaj_ksiazke(self,ksiazka):
-        if (ksiazka.tytul, ksiazka.autor,ksiazka.rok) not in self.ksiazki:
-            self.ksiazki[(ksiazka[0],ksiazka[1],ksiazka[2])] = 1
+        if ksiazka not in self.ksiazki:
+            self.ksiazki[ksiazka] = 1
         else:
-            self.ksiazki[(ksiazka.tytul,ksiazka.autor, ksiazka.rok)] += 1
+            self.ksiazki[ksiazka] += 1
         return "True"
     
     def wypozycz_ksiazke(self,czytelnik, tytul):
         if not self.pobierz_czytelnika(czytelnik) and self.sprawdz_stan(tytul):
             self.czytelnicy[czytelnik] = {tytul: 1}
             ksiazka = self.ksiazka_po_tytule(tytul)
-            self.ksiazki[(ksiazka[0],ksiazka[1],ksiazka[2])] -= 1
+            self.ksiazki[ksiazka] -= 1
             return "True"
         else:
             return "False"
         if self.sprawdz_stan(tytul) and not self.sprawdz_czy_ta_sama(czytelnik, tytul) and not self.sprawdz_czy_trzy(czytelnik):
             self.czytelnicy[czytelnik][tytul] = 1
             ksiazka = self.ksiazka_po_tytule(tytul)
-            self.ksiazki[(ksiazka[0],ksiazka[1],ksiazka[2])] -= 1
+            self.ksiazki[ksiazka] -= 1
             return "True"
         else:
             return "False"
@@ -71,7 +70,7 @@ class Biblioteka:
             return "False"
         else:
             ksiazka = self.ksiazka_po_tytule(tytul)
-            self.ksiazki[(ksiazka[0],ksiazka[1],ksiazka[2])] += 1
+            self.ksiazki[ksiazka] += 1
             del self.czytelnicy[czytelnik][tytul]
             return "True"
 
