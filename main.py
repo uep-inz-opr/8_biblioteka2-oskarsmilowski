@@ -77,7 +77,8 @@ def main():
         print(dane_wejsciowe)
 
         if dane_wejsciowe[0] == "dodaj":
-            wynik = biblioteka.dodaj_ksiazke(dane_wejsciowe[1], dane_wejsciowe[2], int(dane_wejsciowe[3]))
+            ksiazka = Ksiazka(dane_wejsciowe[1], dane_wejsciowe[2], int(dane_wejsciowe[3]))
+            wynik = biblioteka.dodaj_ksiazke(ksiazka)
         elif dane_wejsciowe[0] == "wypozycz":
             wynik = biblioteka.wypozycz_ksiazke(dane_wejsciowe[1], dane_wejsciowe[2])
         else:
