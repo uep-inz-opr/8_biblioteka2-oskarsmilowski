@@ -35,7 +35,7 @@ class Biblioteka:
     def sprawdz_czy_ta_sama(self,czytelnik, tytul) -> bool:
         if czytelnik in self.czytelnicy:
             if tytul in self.czytelnicy[czytelnik]:
-                if self.czytelnicy[czytelnil][tytul] == 1:
+                if self.czytelnicy[czytelnik][tytul] == 1:
                     return True
         return False
     
