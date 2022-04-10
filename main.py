@@ -67,6 +67,8 @@ class Biblioteka:
             return "False"
 
     def oddaj_ksiazke(self,czytelnik, tytul):
+        if not self.pobierz_czytelnika(czytelnik):
+            return "False"
         if tytul not in self.czytelnicy[czytelnik]:
             return "False"
         else:
