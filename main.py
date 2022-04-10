@@ -33,7 +33,8 @@ class Biblioteka:
     def sprawdz_czy_ta_sama(self,czytelnik, tytul) -> bool:
         if czytelnik in self.czytelnicy:
             if tytul in self.czytelnicy[czytelnik]:
-                return True
+                if self.czytelnicy[czytelnil][tytul] == 1:
+                    return True
         return False
     
     def sprawdz_czy_trzy(self,czytelnik) -> bool:
@@ -71,7 +72,7 @@ class Biblioteka:
         else:
             ksiazka = self.ksiazka_po_tytule(tytul)
             self.ksiazki[ksiazka] += 1
-            del self.czytelnicy[czytelnik][tytul]
+            self.czytelnicy[czytelnik][tytul] = 0
             return "True"
 
 
