@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+import typing
 import ast
 
 @dataclass(frozen=True)
@@ -14,8 +15,8 @@ class Czytelnik:
 
 @dataclass(frozen=False)
 class Biblioteka:
-    ksiazki: dict() = field(default_factory=dict) # slownik gdzie klucz to obiekt klasy Ksiazka a wartosc liczba egzemplarzy
-    czytelnicy: dict() =field(default_factory=dict) # slownik z obiektami klasy Czytelnik
+    ksiazki: typing.Dict[Ksiazka, int] = field(default_factory=dict) # slownik gdzie klucz to obiekt klasy Ksiazka a wartosc liczba egzemplarzy
+    czytelnicy: typing.Dict[str, list] =field(default_factory=dict) # slownik z obiektami klasy Czytelnik
 
 
     def pobierz_czytelnika(self,czytelnik: Czytelnik) -> bool:
