@@ -12,7 +12,7 @@ class Czytelnik:
     imie: str
     wypozyczone: list = field(default_factory=list)
 
-@dataclass(frozen=True)
+@dataclass(frozen=False)
 class Biblioteka:
     ksiazki: dict() = field(default_factory=dict) # slownik gdzie klucz to obiekt klasy Ksiazka a wartosc liczba egzemplarzy
     czytelnicy: dict() =field(default_factory=dict) # slownik z obiektami klasy Czytelnik
